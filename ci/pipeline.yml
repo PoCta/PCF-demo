@@ -45,20 +45,3 @@ jobs:
         params:
           <<: *MAVENPARAMS
 
- - name: st-integration-test
-    serial: true
-    plan:
-      - get: pcfdemo
-        passed: [ft-integration-test]
-      - task: st
-        file: pcfdemo/ci/tasks/st.yml
-        params:
-          CF_MANIFEST_HOST: {{cf-manifest-host}}
-      - put: cf
-        params:
-          manifest: build/manifest.yml
-      - task: integration
-        file: pcfdemo/ci/tasks/integration.yml
-        params:
-          <<: *MAVENPARAMS
-
